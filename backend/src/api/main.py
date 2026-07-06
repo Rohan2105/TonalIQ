@@ -18,6 +18,7 @@ import soundfile as sf
 import onnxruntime as ort
 import torch
 torch.set_num_threads(1)
+torch.set_grad_enabled(False)
 import torch.nn.functional as F
 from pydub import AudioSegment
 from fastapi import FastAPI, UploadFile, File, WebSocket, WebSocketDisconnect, HTTPException
@@ -28,7 +29,6 @@ from src.api.config import (
     ONNX_MODEL_PATH, HF_MODEL_PATH, DEFAULT_MODEL_NAME, LOG_FILE, ALLOWED_ORIGINS
 )
 from src.models.config import EMOTION_LABELS, SAMPLE_RATE
-from src.models.explain import generate_attention_map
 from src.pipeline.preprocess import clean_audio_signal
 
 # Configure logging to console and to file
@@ -181,7 +181,8 @@ async def predict_file(file: UploadFile = File(...)):
         
         # 5. Generate Attention Explainability Graph (requires PyTorch)
         explain_b64 = ""
-        if pytorch_model is not None:
+        if pytorch_model is not None and os.getenv("DISABLE_EXPLAINABILITY", "true").lower() != "true":
+            from src.models.explain import generate_attention_map
             explain_b64 = generate_attention_map(clean_samples, pytorch_model, processor)
             
         latency = (time.time() - start_time) * 1000
