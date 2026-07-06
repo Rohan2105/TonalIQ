@@ -19,7 +19,7 @@ LOG_DIR.mkdir(parents=True, exist_ok=True)
 # Model Paths
 ONNX_MODEL_PATH = BASE_DIR / "models" / "optimized" / "model_quantized.onnx"
 HF_MODEL_PATH = BASE_DIR / "models" / "checkpoints" / "hf_model"
-DEFAULT_MODEL_NAME = os.getenv("HF_MODEL_REPO", "Rohan2105/TonalIQ-wav2vec2")
+DEFAULT_MODEL_NAME = os.getenv("HF_MODEL_REPO", "rohan21005/TonalIQ-wav2vec2")
 
 # API Server Settings
 HOST = "0.0.0.0"
