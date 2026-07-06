@@ -1,6 +1,3 @@
---extra-index-url https://download.pytorch.org/whl/cpu
---trusted-host download.pytorch.org
---trusted-host download-r2.pytorch.org
 torch>=2.0.0
 torchaudio>=2.0.0
 fastapi>=0.100.0
