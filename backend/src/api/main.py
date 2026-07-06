@@ -17,6 +17,7 @@ import numpy as np
 import soundfile as sf
 import onnxruntime as ort
 import torch
+torch.set_num_threads(1)
 import torch.nn.functional as F
 from pydub import AudioSegment
 from fastapi import FastAPI, UploadFile, File, WebSocket, WebSocketDisconnect, HTTPException
@@ -78,10 +79,10 @@ async def startup_event():
     try:
         if HF_MODEL_PATH.exists():
             logger.info(f"Loading PyTorch model from checkpoint: {HF_MODEL_PATH}")
-            pytorch_model = Wav2Vec2ForSequenceClassification.from_pretrained(HF_MODEL_PATH)
+            pytorch_model = Wav2Vec2ForSequenceClassification.from_pretrained(HF_MODEL_PATH, low_cpu_mem_usage=True)
         else:
             logger.info(f"Loading default PyTorch model (zero-shot fallback): {DEFAULT_MODEL_NAME}")
-            pytorch_model = Wav2Vec2ForSequenceClassification.from_pretrained(DEFAULT_MODEL_NAME)
+            pytorch_model = Wav2Vec2ForSequenceClassification.from_pretrained(DEFAULT_MODEL_NAME, low_cpu_mem_usage=True)
         pytorch_model.eval()
     except Exception as e:
         logger.error(f"Failed loading PyTorch model: {str(e)}")
