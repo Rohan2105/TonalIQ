@@ -1,0 +1,27 @@
+Metadata-Version: 2.4
+Name: speech-emotion-recognition-backend
+Version: 0.1.0
+Summary: Headless API backend for Speech Emotion Recognition
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: fastapi>=0.100.0
+Requires-Dist: uvicorn[standard]>=0.22.0
+Requires-Dist: websockets>=11.0
+Requires-Dist: torch>=2.0.0
+Requires-Dist: torchaudio>=2.0.0
+Requires-Dist: transformers>=4.30.0
+Requires-Dist: librosa>=0.10.0
+Requires-Dist: noisereduce>=2.0.1
+Requires-Dist: onnxruntime>=1.15.0
+Requires-Dist: numpy>=1.24.0
+Requires-Dist: pandas>=2.0.0
+Requires-Dist: scikit-learn>=1.2.0
+Requires-Dist: pydantic>=2.0.0
+Requires-Dist: python-multipart>=0.0.6
+Requires-Dist: soundfile>=0.12.1
+Requires-Dist: scipy>=1.10.0
+Requires-Dist: pydub>=0.25.1
+
+# Speech Emotion Recognition Backend
+
+This is the headless API and machine learning pipeline backend for the Speech Emotion Recognition (SER) System.

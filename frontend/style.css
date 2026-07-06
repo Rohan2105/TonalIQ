@@ -1,0 +1,395 @@
+/* frontend/style.css */
+
+/* 1. Global Reset & Variables */
+:root {
+    --bg-app: #faf9f6;          /* Minimalist warm off-white */
+    --bg-card: #ffffff;         /* Pure white cards */
+    --border-color: #e7e5e4;    /* Light warm stone-200 border */
+    
+    /* Typography colors */
+    --text-primary: #1c1917;    /* Charcoal/stone-900 */
+    --text-secondary: #57534e;  /* Stone-600 */
+    --text-muted: #a8a29e;      /* Stone-400 */
+    
+    /* Brand Accent Colors */
+    --accent: #4f46e5;          /* Indigo-600 */
+    --accent-hover: #4338ca;    /* Indigo-700 */
+    --accent-light: #eef2ff;    /* Indigo-50 */
+    
+    /* Emotion Custom Colors */
+    --color-neutral: #78716c;   /* Slate/stone gray */
+    --color-happy: #10b981;     /* Emerald green */
+    --color-sad: #3b82f6;       /* Steel blue */
+    --color-angry: #ef4444;     /* Soft crimson */
+    --color-fear: #8b5cf6;      /* Lavender purple */
+    --color-disgust: #84cc16;   /* Olive/lime green */
+    --color-surprised: #f97316; /* Warm orange */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--bg-app);
+    color: var(--text-primary);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 2. Layout Grid */
+.app-layout {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+}
+
+/* 3. Header Styling */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.logo-icon {
+    font-size: 1.75rem;
+}
+
+.logo-area h1 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.system-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 0.35rem 0.75rem;
+    border-radius: 9999px;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #ef4444; /* Default to error/offline */
+    transition: background-color 0.3s ease;
+}
+
+.status-dot.connected {
+    background-color: #10b981; /* Green when connected */
+}
+
+.status-dot.active {
+    background-color: #f59e0b; /* Amber during active stream */
+    animation: pulse 1.2s infinite alternate;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.4; }
+    100% { opacity: 1; }
+}
+
+/* 4. Section Card Containers */
+.section-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.01);
+}
+
+.section-card h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.25rem;
+}
+
+.subtitle {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+/* 5. Acquisition Grid (Mic vs Upload) */
+.acquisition-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .acquisition-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.acq-card {
+    border: 1px dashed var(--border-color);
+    border-radius: 8px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.acq-card h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.acq-card p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    max-width: 280px;
+}
+
+.upload-card.dragover {
+    border-color: var(--accent);
+    background-color: var(--accent-light);
+}
+
+/* 6. Buttons */
+.btn {
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.55rem 1.25rem;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-primary {
+    background-color: var(--text-primary);
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #292524;
+}
+
+.btn-primary.recording {
+    background-color: #ef4444;
+}
+
+.btn-primary.recording:hover {
+    background-color: #dc2626;
+}
+
+.btn-secondary {
+    background-color: #ffffff;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background-color: #f5f5f4;
+}
+
+/* VU Meter */
+.vumeter-container {
+    width: 100%;
+    max-width: 220px;
+    height: 12px;
+    margin-top: 1rem;
+    background-color: #f5f5f4;
+    border-radius: 9999px;
+    overflow: hidden;
+    display: none;
+}
+
+.vumeter-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.file-info {
+    font-size: 0.75rem;
+    color: var(--accent);
+    margin-top: 0.75rem;
+    font-weight: 500;
+}
+
+/* 7. Results Display Layout */
+.results-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.result-card h2 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+/* Primary dominant display */
+.primary-result {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid var(--border-color);
+    padding-right: 2rem;
+}
+
+@media (max-width: 768px) {
+    .primary-result {
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        padding-right: 0;
+        padding-bottom: 1.5rem;
+    }
+}
+
+.emotion-display {
+    margin: 2rem 0;
+}
+
+.emotion-value {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--text-primary);
+    text-transform: capitalize;
+}
+
+.confidence-badge {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    background-color: var(--accent-light);
+    color: var(--accent);
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+    margin-top: 0.5rem;
+}
+
+.latency-log {
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* Horizontal progress bars */
+.gauges-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    margin-top: 1rem;
+}
+
+.gauge-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 40px;
+    align-items: center;
+    gap: 1rem;
+}
+
+.gauge-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: capitalize;
+}
+
+.gauge-bar-wrapper {
+    height: 8px;
+    background-color: #f5f5f4;
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.gauge-bar-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 9999px;
+    transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: var(--color-neutral); /* Default fallback */
+}
+
+/* Color codes mapping to specific emotions */
+.gauge-row[data-emotion="neutral"] .gauge-bar-fill { background-color: var(--color-neutral); }
+.gauge-row[data-emotion="happy"] .gauge-bar-fill { background-color: var(--color-happy); }
+.gauge-row[data-emotion="sad"] .gauge-bar-fill { background-color: var(--color-sad); }
+.gauge-row[data-emotion="angry"] .gauge-bar-fill { background-color: var(--color-angry); }
+.gauge-row[data-emotion="fear"] .gauge-bar-fill { background-color: var(--color-fear); }
+.gauge-row[data-emotion="disgust"] .gauge-bar-fill { background-color: var(--color-disgust); }
+.gauge-row[data-emotion="surprised"] .gauge-bar-fill { background-color: var(--color-surprised); }
+
+.gauge-val {
+    font-family: monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: right;
+    color: var(--text-secondary);
+}
+
+/* 8. Explainable AI section */
+.xai-graph-container {
+    width: 100%;
+    min-height: 200px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    padding: 0.5rem;
+}
+
+.xai-placeholder {
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.xai-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.xai-placeholder p {
+    font-size: 0.8rem;
+}
+
+.xai-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+}

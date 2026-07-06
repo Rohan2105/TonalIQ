@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acoustic Emotion Analyzer — Minimalist SER Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar or Header Branding -->
+        <header class="app-header">
+            <div class="logo-area">
+                <span class="logo-icon">🔊</span>
+                <h1>Acoustic Analyzer</h1>
+            </div>
+            <div class="system-status">
+                <span class="status-dot" id="connectionDot"></span>
+                <span id="systemStatus">Ready</span>
+            </div>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="workspace">
+            <!-- Input Control Section -->
+            <section class="section-card input-section">
+                <h2>Audio Acquisition</h2>
+                <p class="subtitle">Select an acquisition method to run Speech Emotion Recognition</p>
+                
+                <div class="acquisition-grid">
+                    <!-- Method 1: Live Stream -->
+                    <div class="acq-card mic-card">
+                        <h3>Live Streaming</h3>
+                        <p>Stream real-time microphone audio directly to the neural classifier.</p>
+                        <button id="streamBtn" class="btn btn-primary">Start Live Stream</button>
+                        <div class="vumeter-container">
+                            <canvas id="vumeter" class="vumeter-canvas"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Method 2: File Upload -->
+                    <div class="acq-card upload-card" id="dropZone">
+                        <h3>File Analysis</h3>
+                        <p>Drag and drop an audio file (.wav, .mp3, .webm, .ogg) or click to browse.</p>
+                        <input type="file" id="fileInput" accept="audio/*" style="display: none;">
+                        <button id="browseBtn" class="btn btn-secondary">Choose Audio File</button>
+                        <div id="fileInfo" class="file-info"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="section-card results-section">
+                <div class="results-grid">
+                    <!-- Dominant Emotion Readout -->
+                    <div class="result-card primary-result">
+                        <h2>Dominant Emotion</h2>
+                        <p class="subtitle">Neural network classifier readout</p>
+                        <div class="emotion-display">
+                            <div id="dominantEmotionValue" class="emotion-value">—</div>
+                            <div id="confidenceBadge" class="confidence-badge">0.0%</div>
+                        </div>
+                        <p id="analysisTime" class="latency-log">Latency: —ms</p>
+                    </div>
+
+                    <!-- Emotion Probabilities Gauges -->
+                    <div class="result-card metrics-result">
+                        <h2>Confidence Profiles</h2>
+                        <p class="subtitle">Individual emotion score distributions</p>
+                        <div class="gauges-container" id="gaugesContainer">
+                            <!-- Dynamically generated custom horizontal gauges -->
+                            <div class="gauge-row" data-emotion="neutral">
+                                <span class="gauge-label">Neutral</span>
+                                <div class="gauge-bar-wrapper">
+                                    <div class="gauge-bar-fill" style="width: 0%;"></div>
+                                </div>
+                                <span class="gauge-val">0%</span>
+                            </div>
+                            <div class="gauge-row" data-emotion="happy">
+                                <span class="gauge-label">Happy</span>
+                                <div class="gauge-bar-wrapper">
+                                    <div class="gauge-bar-fill" style="width: 0%;"></div>
+                                </div>
+                                <span class="gauge-val">0%</span>
+                            </div>
+                            <div class="gauge-row" data-emotion="sad">
+                                <span class="gauge-label">Sad</span>
+                                <div class="gauge-bar-wrapper">
+                                    <div class="gauge-bar-fill" style="width: 0%;"></div>
+                                </div>
+                                <span class="gauge-val">0%</span>
+                            </div>
+                            <div class="gauge-row" data-emotion="angry">
+                                <span class="gauge-label">Angry</span>
+                                <div class="gauge-bar-wrapper">
+                                    <div class="gauge-bar-fill" style="width: 0%;"></div>
+                                </div>
+                                <span class="gauge-val">0%</span>
+                            </div>
+                            <div class="gauge-row" data-emotion="fear">
+                                <span class="gauge-label">Fearful</span>
+                                <div class="gauge-bar-wrapper">
+                                    <div class="gauge-bar-fill" style="width: 0%;"></div>
+                                </div>
+                                <span class="gauge-val">0%</span>
+                            </div>
+                            <div class="gauge-row" data-emotion="disgust">
+                                <span class="gauge-label">Disgust</span>
+                                <div class="gauge-bar-wrapper">
+                                    <div class="gauge-bar-fill" style="width: 0%;"></div>
+                                </div>
+                                <span class="gauge-val">0%</span>
+                            </div>
+                            <div class="gauge-row" data-emotion="surprised">
+                                <span class="gauge-label">Surprised</span>
+                                <div class="gauge-bar-wrapper">
+                                    <div class="gauge-bar-fill" style="width: 0%;"></div>
+                                </div>
+                                <span class="gauge-val">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Diagnostic Saliency Overlay (Explainable AI) -->
+            <section class="section-card xai-section" id="xaiSection">
+                <h2>Explainable AI Diagnostics</h2>
+                <p class="subtitle">Temporal self-attention rollout mapped across the audio waveform timeline</p>
+                <div class="xai-graph-container">
+                    <div id="xaiPlaceholder" class="xai-placeholder">
+                        <span class="xai-icon">🔍</span>
+                        <p>Upload a file or record audio to visualize neural network focus states</p>
+                    </div>
+                    <img id="xaiImage" class="xai-image" style="display: none;" alt="Attention map visualization">
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

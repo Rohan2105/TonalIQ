@@ -1,0 +1,16 @@
+# Data and local dependencies
+backend/data/raw/
+backend/data/processed/
+.uv/
+.venv/
+backend/.venv/
+__pycache__/
+*.pyc
+
+# Model artifacts
+backend/models/checkpoints/
+backend/models/optimized/
+
+# Run logs
+backend/logs/
+backend/runs/
